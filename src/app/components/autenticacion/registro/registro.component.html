@@ -1,1 +1,44 @@
-<p>registro works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h3 class="text-center mb-4">Registrarse</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="username" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" formControlName="username" />
+            <div *ngIf="submitted && registerForm.get('username')?.invalid" class="text-danger">
+              Nombre de usuario requerido
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" formControlName="password" />
+            <div *ngIf="submitted && registerForm.get('password')?.errors?.['required']" class="text-danger">
+              La contraseña es requerida
+            </div>
+            <div *ngIf="submitted && registerForm.get('password')?.errors?.['pattern']" class="text-danger">
+              Debe tener mínimo 8 caracteres, mayúscula, número y un símbolo
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="role" class="form-label">Rol</label>
+            <select class="form-select" formControlName="role">
+              <option value="USER">Usuario</option>
+              <option value="ADMIN">Administrador</option>
+            </select>
+          </div>
+  
+          <button type="submit" class="btn btn-success w-100">Registrarse</button>
+  
+          <div *ngIf="registroExitoso" class="alert alert-success mt-3">
+            Registro exitoso
+          </div>
+          <div *ngIf="registroError" class="alert alert-danger mt-3">
+            {{ mensajeError }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  
